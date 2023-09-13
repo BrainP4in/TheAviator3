@@ -184,7 +184,7 @@ export class UIManager {
     const elem = document.getElementById('new-level');
     elem.style.visibility = 'visible';
     elem.style.animationDuration = Math.round(ANIMATION_DURATION * 1000) + 'ms';
-    elem.children[1].innerText = level;
+    elem.children[1].innerText = level.toString();
     elem.classList.add('animating');
     setTimeout(() => {
       document.getElementById('new-level').style.visibility = 'hidden';
@@ -200,15 +200,20 @@ export class UIManager {
 
     // fill in statistics
     document.getElementById('score-coins-collected').innerText =
-      this.game.state.statistics.coinsCollected;
+      this.game.state.statistics.coinsCollected.toString();
     document.getElementById('score-coins-total').innerText =
-      this.game.state.statistics.coinsSpawned;
+      this.game.state.statistics.coinsSpawned.toString();
     document.getElementById('score-enemies-killed').innerText =
-      this.game.state.statistics.enemiesKilled;
+      this.game.state.statistics.enemiesKilled.toString();
     document.getElementById('score-enemies-total').innerText =
-      this.game.state.statistics.enemiesSpawned;
-    document.getElementById('score-shots-fired').innerText = this.game.state.statistics.shotsFired;
-    document.getElementById('score-lifes-lost').innerText = this.game.state.statistics.lifesLost;
+      this.game.state.statistics.enemiesSpawned.toString();
+    document.getElementById('score-shots-fired').innerText = this.game.state.statistics.shotsFired.toString();
+    document.getElementById('score-lifes-lost').innerText = this.game.state.statistics.lifesLost.toString();
+
+    document.getElementById('btn-replay').addEventListener("click", () => {
+      this.game.gameManager.resetMap();
+      elemScreen.classList.remove('visible');
+    })
   }
 
   showError(message) {
