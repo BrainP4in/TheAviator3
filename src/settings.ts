@@ -1,4 +1,4 @@
-import {GameStatus} from './types';
+import { GameStatus } from "./types";
 
 // Settings
 export const Colors = {

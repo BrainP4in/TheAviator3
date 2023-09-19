@@ -1,11 +1,11 @@
-import * as THREE from 'three';
-import TweenMax from 'gsap';
-import {SimpleGun, DoubleGun, BetterGun} from './Guns';
-import {Colors} from '../../settings';
-import {makeTetrahedron} from '../../utils/utils';
-import {Game} from '../../game';
-import {GameStatus} from '../../types';
-import {utils} from '../../utils/utils.broken';
+import * as THREE from "three";
+import TweenMax from "gsap";
+import { SimpleGun, DoubleGun, BetterGun } from "./Guns";
+import { Colors } from "../../settings";
+import { makeTetrahedron } from "../../utils/utils";
+import { Game } from "../../game";
+import { GameStatus } from "../../types";
+import { utils } from "../../utils/utils.broken";
 
 //region Airplane
 export class Cabin {
@@ -51,7 +51,7 @@ export class Cabin {
         ), // bottom
     );
     const geomCabin = new THREE.BufferGeometry();
-    geomCabin.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    geomCabin.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
 
     var cabin = new THREE.Mesh(geomCabin, matCabin);
     cabin.castShadow = true;
@@ -66,7 +66,10 @@ class Engine {
 
   constructor() {
     var geomEngine = new THREE.BoxGeometry(20, 50, 50, 1, 1, 1);
-    var matEngine = new THREE.MeshPhongMaterial({color: Colors.white, flatShading: true});
+    var matEngine = new THREE.MeshPhongMaterial({
+      color: Colors.white,
+      flatShading: true,
+    });
     var engine = new THREE.Mesh(geomEngine, matEngine);
 
     engine.position.x = 50;
@@ -82,7 +85,10 @@ class Tail {
 
   constructor() {
     var geomTailPlane = new THREE.BoxGeometry(15, 20, 5, 1, 1, 1);
-    var matTailPlane = new THREE.MeshPhongMaterial({color: Colors.red, flatShading: true});
+    var matTailPlane = new THREE.MeshPhongMaterial({
+      color: Colors.red,
+      flatShading: true,
+    });
     var tail = new THREE.Mesh(geomTailPlane, matTailPlane);
 
     tail.position.set(-40, 20, 0);
@@ -97,7 +103,10 @@ class Wings {
 
   constructor() {
     var geomSideWing = new THREE.BoxGeometry(30, 5, 120, 1, 1, 1);
-    var matSideWing = new THREE.MeshPhongMaterial({color: Colors.red, flatShading: true});
+    var matSideWing = new THREE.MeshPhongMaterial({
+      color: Colors.red,
+      flatShading: true,
+    });
     var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
 
     sideWing.position.set(0, 15, 0);
@@ -141,14 +150,20 @@ class Propeller {
     geomPropeller.attributes.position.array[6 * 3 + 2] += 5;
     geomPropeller.attributes.position.array[7 * 3 + 1] += 5;
     geomPropeller.attributes.position.array[7 * 3 + 2] -= 5;
-    var matPropeller = new THREE.MeshPhongMaterial({color: Colors.brown, flatShading: true});
+    var matPropeller = new THREE.MeshPhongMaterial({
+      color: Colors.brown,
+      flatShading: true,
+    });
     const propeller = new THREE.Mesh(geomPropeller, matPropeller);
 
     propeller.castShadow = true;
     propeller.receiveShadow = true;
 
     var geomBlade = new THREE.BoxGeometry(1, 80, 10, 1, 1, 1);
-    var matBlade = new THREE.MeshPhongMaterial({color: Colors.brownDark, flatShading: true});
+    var matBlade = new THREE.MeshPhongMaterial({
+      color: Colors.brownDark,
+      flatShading: true,
+    });
     var blade1 = new THREE.Mesh(geomBlade, matBlade);
 
     blade1.position.set(8, 0, 0);
@@ -175,7 +190,10 @@ class WheelProtection {
 
   constructor() {
     var wheelProtecGeom = new THREE.BoxGeometry(30, 15, 10, 1, 1, 1);
-    var wheelProtecMat = new THREE.MeshPhongMaterial({color: Colors.red, flatShading: true});
+    var wheelProtecMat = new THREE.MeshPhongMaterial({
+      color: Colors.red,
+      flatShading: true,
+    });
     this.mesh = new THREE.Mesh(wheelProtecGeom, wheelProtecMat);
   }
 }
@@ -185,11 +203,17 @@ class Wheel {
 
   constructor() {
     var wheelTireGeom = new THREE.BoxGeometry(24, 24, 4);
-    var wheelTireMat = new THREE.MeshPhongMaterial({color: Colors.brownDark, flatShading: true});
+    var wheelTireMat = new THREE.MeshPhongMaterial({
+      color: Colors.brownDark,
+      flatShading: true,
+    });
     this.mesh = new THREE.Mesh(wheelTireGeom, wheelTireMat);
 
     var wheelAxisGeom = new THREE.BoxGeometry(10, 10, 6);
-    var wheelAxisMat = new THREE.MeshPhongMaterial({color: Colors.brown, flatShading: true});
+    var wheelAxisMat = new THREE.MeshPhongMaterial({
+      color: Colors.brown,
+      flatShading: true,
+    });
     var wheelAxis = new THREE.Mesh(wheelAxisGeom, wheelAxisMat);
     this.mesh.add(wheelAxis);
   }
@@ -201,7 +225,10 @@ class Suspension {
   constructor() {
     var suspensionGeom = new THREE.BoxGeometry(4, 20, 4);
     suspensionGeom.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 10, 0));
-    var suspensionMat = new THREE.MeshPhongMaterial({color: Colors.red, flatShading: true});
+    var suspensionMat = new THREE.MeshPhongMaterial({
+      color: Colors.red,
+      flatShading: true,
+    });
     var suspension = new THREE.Mesh(suspensionGeom, suspensionMat);
     suspension.position.set(-35, -5, 0);
     suspension.rotation.z = -0.3;
@@ -228,12 +255,12 @@ class Pilot {
     this.mesh.add(body);
 
     var faceGeom = new THREE.BoxGeometry(10, 10, 10);
-    var faceMat = new THREE.MeshLambertMaterial({color: Colors.pink});
+    var faceMat = new THREE.MeshLambertMaterial({ color: Colors.pink });
     var face = new THREE.Mesh(faceGeom, faceMat);
     this.mesh.add(face);
 
     var hairGeom = new THREE.BoxGeometry(4, 4, 4);
-    var hairMat = new THREE.MeshLambertMaterial({color: Colors.brown});
+    var hairMat = new THREE.MeshLambertMaterial({ color: Colors.brown });
     var hair = new THREE.Mesh(hairGeom, hairMat);
     hair.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 2, 0));
     var hairs = new THREE.Object3D();
@@ -270,7 +297,7 @@ class Pilot {
     this.mesh.add(hairs);
 
     var glassGeom = new THREE.BoxGeometry(5, 5, 5);
-    var glassMat = new THREE.MeshLambertMaterial({color: Colors.brown});
+    var glassMat = new THREE.MeshLambertMaterial({ color: Colors.brown });
     var glassR = new THREE.Mesh(glassGeom, glassMat);
     glassR.position.set(6, 0, 3);
     var glassL = glassR.clone();
@@ -440,21 +467,31 @@ export class Airplane {
         worldSettings.planeDefaultHeight + worldSettings.planeAmpHeight,
       );
 
-      this.game.state.planeCollisionDisplacementX += this.game.state.planeCollisionSpeedX;
+      this.game.state.planeCollisionDisplacementX +=
+        this.game.state.planeCollisionSpeedX;
       targetX += this.game.state.planeCollisionDisplacementX;
 
-      this.game.state.planeCollisionDisplacementY += this.game.state.planeCollisionSpeedY;
+      this.game.state.planeCollisionDisplacementY +=
+        this.game.state.planeCollisionSpeedY;
       targetY += this.game.state.planeCollisionDisplacementY;
 
       this.mesh.position.x +=
-        (targetX - this.mesh.position.x) * deltaTime * worldSettings.planeMoveSensivity;
+        (targetX - this.mesh.position.x) *
+        deltaTime *
+        worldSettings.planeMoveSensivity;
       this.mesh.position.y +=
-        (targetY - this.mesh.position.y) * deltaTime * worldSettings.planeMoveSensivity;
+        (targetY - this.mesh.position.y) *
+        deltaTime *
+        worldSettings.planeMoveSensivity;
 
       this.mesh.rotation.x =
-        (this.mesh.position.y - targetY) * deltaTime * worldSettings.planeRotZSensivity;
+        (this.mesh.position.y - targetY) *
+        deltaTime *
+        worldSettings.planeRotZSensivity;
       this.mesh.rotation.z =
-        (targetY - this.mesh.position.y) * deltaTime * worldSettings.planeRotXSensivity;
+        (targetY - this.mesh.position.y) *
+        deltaTime *
+        worldSettings.planeRotXSensivity;
 
       const camera = this.game.world.camera;
       if (this.game.state.fpv) {
@@ -462,10 +499,18 @@ export class Airplane {
         // camera.setRotationFromEuler(new THREE.Euler(-1.490248, -1.4124514, -1.48923231))
         // camera.updateProjectionMatrix ()
       } else {
-        camera.fov = utils.normalize(this.game.uiManager.mousePos.x, -30, 1, 40, 80);
+        camera.fov = utils.normalize(
+          this.game.uiManager.mousePos.x,
+          -30,
+          1,
+          40,
+          80,
+        );
         camera.updateProjectionMatrix();
         camera.position.y +=
-          (this.mesh.position.y - camera.position.y) * deltaTime * worldSettings.cameraSensivity;
+          (this.mesh.position.y - camera.position.y) *
+          deltaTime *
+          worldSettings.cameraSensivity;
       }
     }
 
@@ -487,8 +532,8 @@ export class Airplane {
     this.game.state.planeCollisionSpeedX = (100 * diffPos.x) / d;
     this.game.state.planeCollisionSpeedY = (100 * diffPos.y) / d;
 
-    const {ambientLight} = this.game.world.light;
+    const { ambientLight } = this.game.world.light;
     ambientLight.intensity = 2;
-    this.game.audioManager.play('airplane-crash');
+    this.game.audioManager.play("airplane-crash");
   }
 }
